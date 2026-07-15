@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="stoic">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘의 철학자 (Daily Philosopher) - 매일 만나는 내면의 지혜</title>
+  <meta name="description" content="매일 한 명의 위대한 철학자를 추천받고, 그들의 난해한 핵심 사상을 일상적인 예시를 통해 쉽고 깊게 공부하세요. 성찰 일지와 오늘의 퀴즈로 철학을 나의 삶에 심어보세요.">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="keywords" content="철학, 오늘의철학자, 소크라테스, 니체, 칸트, 공자, 노자, 아타락시아, 명상록, 인문학, 퀴즈, 성찰일지">
+  <meta property="og:title" content="오늘의 철학자 (Daily Philosopher)">
+  <meta property="og:description" content="매일 한 명의 철학자와 그들의 핵심 사상을 가장 알기 쉽게 전해드립니다.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- PWA mobile support -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="오늘의 철학자">
+  <link rel="apple-touch-icon" href="assets/images/icon-192.png">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Application Header -->
+    <header id="app-header">
+      <div class="logo">
+        <h1 id="app-title">🏛️ 오늘의 철학자</h1>
+        <p id="app-subtitle">매일 만나는 지혜와 영혼의 단련 <span class="total-philosophers-badge">총 <span id="total-philosophers-count">-</span>명</span></p>
+      </div>
+      
+      <!-- Theme Customizer Switchers -->
+      <div class="theme-selector" id="theme-selector-container">
+        <button class="theme-btn active" data-theme-name="stoic" id="theme-btn-stoic" title="스토아학파의 차분함">
+          <span>🏛️</span> Stoic
+        </button>
+        <button class="theme-btn" data-theme-name="nietzsche" id="theme-btn-nietzsche" title="니체의 의지">
+          <span>🔥</span> Nietzsche
+        </button>
+        <button class="theme-btn" data-theme-name="rationalist" id="theme-btn-rational" title="합리주의의 명징함">
+          <span>🌀</span> Rational
+        </button>
+        <button class="theme-btn" data-theme-name="eastern" id="theme-btn-eastern" title="동양의 조화">
+          <span>🍃</span> Eastern
+        </button>
+        <button class="theme-btn" id="pwa-install-btn" style="background: rgba(var(--accent-rgb), 0.15); border-color: rgba(var(--accent-rgb), 0.55); color: var(--text-main); font-weight: 700;" title="홈 화면에 웹앱 추가">
+          <span>📲</span> 홈화면 추가
+        </button>
+      </div>
+    </header>
+
+    <!-- Dashboard View Section -->
+    <section id="dashboard-view" class="view-section">
+      <!-- Tabular Map Section -->
+      <nav class="glass-card map-navigation-card" id="map-navigation" style="margin-bottom: 2rem;">
+      <div class="map-nav-header">
+        <div class="map-nav-title-wrap">
+          <h2 class="map-nav-title">🌐 동서양 & 시대별 철학 지도</h2>
+          <div class="search-box-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="philosopher-search-input" placeholder="철학자 검색..." />
+          </div>
+        </div>
+        <p class="map-nav-subtitle">시대순과 동서양의 지도를 터치하여 탐구할 철학자를 선택해 보세요</p>
+      </div>
+      
+      <div class="map-tables-container">
+        <!-- Western Philosophy Table Section -->
+        <div class="region-table-section">
+          <h3 class="region-table-title">🏛️ 서양 철학 (Western Philosophy)</h3>
+          <div class="map-table-wrapper">
+            <table class="map-table">
+              <thead>
+                <tr>
+                  <th class="col-era">시대 (Era)</th>
+                  <th class="col-philosophers">철학자 (Philosophers)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cell-era-title"><strong>고대</strong><br><span class="era-subtitle">Ancient</span><br><span class="era-years">BC 6세기 ~ AD 5세기</span></td>
+                  <td><div class="philosopher-tags" id="tags-west-ancient"></div></td>
+                </tr>
+                <tr>
+                  <td class="cell-era-title"><strong>중세</strong><br><span class="era-subtitle">Medieval</span><br><span class="era-years">5세기 ~ 15세기</span></td>
+                  <td><div class="philosopher-tags" id="tags-west-medieval"></div></td>
+                </tr>
+                <tr>
+                  <td class="cell-era-title"><strong>근대</strong><br><span class="era-subtitle">Modern</span><br><span class="era-years">16세기 ~ 19세기 중엽</span></td>
+                  <td><div class="philosopher-tags" id="tags-west-modern"></div></td>
+                </tr>
+                <tr>
+                  <td class="cell-era-title"><strong>현대</strong><br><span class="era-subtitle">Contemporary</span><br><span class="era-years">19세기 말 ~ 현재</span></td>
+                  <td><div class="philosopher-tags" id="tags-west-contemporary"></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Eastern Philosophy Table Section -->
+        <div class="region-table-section" style="margin-top: 2rem;">
+          <h3 class="region-table-title">🍃 동양 철학 (Eastern Philosophy)</h3>
+          <div class="map-table-wrapper">
+            <table class="map-table">
+              <thead>
+                <tr>
+                  <th class="col-era">시대 (Era)</th>
+                  <th class="col-philosophers">철학자 (Philosophers)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cell-era-title"><strong>원류 형성기</strong><br><span class="era-subtitle">Origin & Formation</span><br><span class="era-years">BC 6세기 ~ 10세기</span></td>
+                  <td><div class="philosopher-tags" id="tags-east-origin"></div></td>
+                </tr>
+                <tr>
+                  <td class="cell-era-title"><strong>학제적 심화기</strong><br><span class="era-subtitle">Academic Deepening</span><br><span class="era-years">11세기 ~ 19세기 중엽</span></td>
+                  <td><div class="philosopher-tags" id="tags-east-deepening"></div></td>
+                </tr>
+                <tr>
+                  <td class="cell-era-title"><strong>현대적 변용기</strong><br><span class="era-subtitle">Modern Transformation</span><br><span class="era-years">19세기 말 ~ 현재</span></td>
+                  <td><div class="philosopher-tags" id="tags-east-transformation"></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Philosophical Movements Table Section -->
+        <div class="region-table-section" style="margin-top: 2rem;">
+          <h3 class="region-table-title">📚 철학사조 및 영역철학 (Movements & Specialized Philosophies)</h3>
+          <div class="map-table-wrapper">
+            <table class="map-table movements-table">
+              <thead>
+                <tr>
+                  <th class="col-era">구분 (Category)</th>
+                  <th class="col-philosophers">사조 및 학파 (Movements)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cell-era-title"><strong>인식론</strong><br><span class="era-subtitle">Epistemology</span></td>
+                  <td><div class="philosopher-tags" id="tags-move-epistemology"></div></td>
+                </tr>
+                <tr>
+                  <td class="cell-era-title"><strong>존재론</strong><br><span class="era-subtitle">Ontology</span></td>
+                  <td><div class="philosopher-tags" id="tags-move-ontology"></div></td>
+                </tr>
+                <tr>
+                  <td class="cell-era-title"><strong>실존·생</strong><br><span class="era-subtitle">Existential & Life</span></td>
+                  <td><div class="philosopher-tags" id="tags-move-existential-life"></div></td>
+                </tr>
+                <tr>
+                  <td class="cell-era-title"><strong>현대 전환</strong><br><span class="era-subtitle">Contemporary Turns</span></td>
+                  <td><div class="philosopher-tags" id="tags-move-contemporary-turns"></div></td>
+                </tr>
+                <tr>
+                  <td class="cell-era-title"><strong>탈현대·차이</strong><br><span class="era-subtitle">Postmodern & Diff</span></td>
+                  <td><div class="philosopher-tags" id="tags-move-postmodern-difference"></div></td>
+                </tr>
+                <tr>
+                  <td class="cell-era-title"><strong>영역철학</strong><br><span class="era-subtitle">Specialized</span></td>
+                  <td><div class="philosopher-tags" id="tags-move-others"></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </nav>
+    </section>
+
+    <!-- Movement Detail View Section -->
+    <section id="movement-view" class="view-section hidden-view" style="display: none;">
+      <div class="back-nav-container">
+        <button id="btn-back-movement-to-dashboard" class="btn-back-dashboard">
+          <span>⬅️</span> 철학 지도 목록으로 돌아가기
+        </button>
+      </div>
+
+      <div class="glass-card spotlight-card animate-fade-in" style="margin-bottom: 2rem; padding: 2rem;">
+        <div class="philosopher-header" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+          <span class="philosopher-region-badge" id="move-category" style="background: rgba(var(--accent-rgb), 0.15); color: var(--accent); font-weight: 700;">인식론</span>
+          <h2 id="move-name" style="margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px;">합리주의</h2>
+          <span id="move-eng-name" style="font-size: 1.1rem; color: var(--text-muted); font-weight: 500;">Rationalism</span>
+        </div>
+        
+        <p id="move-desc" style="font-size: 1.05rem; line-height: 1.7; color: var(--text-main); margin-top: 1.5rem; margin-bottom: 1.5rem;">사조 설명...</p>
+        
+        <div id="move-relation-box" class="glass-card" style="display: none; padding: 1rem; margin-bottom: 2rem; background: rgba(255, 255, 255, 0.02); border-color: rgba(255, 255, 255, 0.05); align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.2rem;">🔄</span> <span id="move-relation-text" style="font-size: 0.9rem; font-weight: 500;">대립 관계...</span>
+        </div>
+
+        <div style="margin-top: 2.5rem;">
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; color: var(--accent);">💡 핵심 개념 및 상세 설명</h3>
+          <div id="move-concepts-list" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <!-- Core concepts dynamically inserted -->
+          </div>
+        </div>
+
+        <div style="margin-top: 2.5rem;">
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; color: var(--accent);">👥 대표 철학자 (클릭하여 생애·퀴즈 탐구)</h3>
+          <div id="move-philosophers-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem;">
+            <!-- Representative philosophers cards dynamically inserted -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detail View Section -->
+    <section id="detail-view" class="view-section hidden-view" style="display: none;">
+      <div class="back-nav-container">
+        <button id="btn-back-to-dashboard" class="btn-back-dashboard">
+          <span>⬅️</span> 철학 지도 목록으로 돌아가기
+        </button>
+      </div>
+
+      <!-- Main Dashboard Layout -->
+      <main class="dashboard" id="main-dashboard">
+      
+      <!-- Left Column: Spotlight Philosopher -->
+      <section class="glass-card spotlight-card animate-fade-in" id="spotlight-section">
+        <div class="philosopher-header">
+          <!-- Portrait Avatar Container -->
+          <div class="ph-portrait-container" id="ph-portrait-container">
+            <img id="ph-portrait" src="assets/images/default-bust.jpg" alt="철학자 초상화">
+          </div>
+          
+          <div class="ph-header-meta">
+            <span class="badge-daily" id="badge-daily-label">오늘의 철학자</span>
+            <div class="philosopher-name-wrap">
+              <h2 class="philosopher-name" id="ph-name">-</h2>
+              <span class="philosopher-eng-name" id="ph-eng-name">-</span>
+            </div>
+            <span class="philosopher-period" id="ph-period">-</span>
+          </div>
+        </div>
+        
+        <div class="philosopher-body">
+          <p class="philosopher-tagline" id="ph-tagline">-</p>
+          
+          <div class="quote-container" id="quote-card">
+            <p class="quote-text" id="ph-quote">"-"</p>
+            <p class="quote-english" id="ph-quote-english">-</p>
+          </div>
+          
+          <p class="bio-text" id="ph-bio">-</p>
+          
+          <!-- Representative Works Section -->
+          <div class="ph-books-section" id="ph-books-section"></div>
+        </div>
+      </section>
+
+      <!-- Right Column: Interactive panels -->
+      <div class="right-column" id="right-column-container">
+        
+        <!-- Panel 1: Key Concept Explorer -->
+        <section class="glass-card" id="concepts-panel">
+          <h3 class="panel-title" id="concepts-panel-title">💡 핵심 개념 돋보기</h3>
+          <div class="concept-list" id="concept-list-container">
+            <!-- Dynamic elements loaded via app.js -->
+          </div>
+        </section>
+
+        <!-- Panel 2: Daily Practice (Stoic Reflection / Journaling) -->
+        <section class="glass-card" id="journal-panel">
+          <h3 class="panel-title" id="journal-panel-title">📝 오늘의 성찰 일지</h3>
+          <div class="journal-prompt" id="reflection-prompt-text">-</div>
+          <div class="textarea-wrap">
+            <textarea id="journal-input" class="journal-textarea" placeholder="이 구절이나 핵심 개념을 오늘 나의 일상에 어떻게 적용해 볼 수 있을까요? 편안하게 기록해 보세요."></textarea>
+          </div>
+          <button class="btn-primary" id="save-journal-btn">
+            성찰 기록하기 💾
+          </button>
+
+          <!-- List of past reflections stored in LocalStorage -->
+          <div class="past-reflections" id="past-reflections-container">
+            <div class="past-reflection-title">나의 생각 기록들</div>
+            <div class="past-reflection-list" id="reflection-items">
+              <!-- Dynamically populated past reflections -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel 3: Interactive Learning Quiz -->
+        <section class="glass-card" id="quiz-panel">
+          <h3 class="panel-title" id="quiz-panel-title">❓ 오늘의 지혜 확인</h3>
+          <div id="quiz-container">
+            <!-- Dynamic quiz loaded via app.js -->
+          </div>
+        </section>
+
+      </main>
+    </section>
+
+  </div>
+
+  <!-- PWA Install Guide Modal -->
+  <div id="pwa-modal" class="pwa-modal-backdrop" style="display: none;">
+    <div class="pwa-modal-card animate-fade-in">
+      <div class="pwa-modal-header">
+        <h4>📲 오늘의 철학자 홈화면 추가 안내</h4>
+        <button id="pwa-modal-close" class="pwa-modal-close-btn">&times;</button>
+      </div>
+      <div class="pwa-modal-body">
+        <p>이 웹앱을 홈 화면에 추가하면 오프라인 지원을 비롯해 전용 모바일 앱처럼 쾌적하게 사용하실 수 있습니다.</p>
+        
+        <div class="pwa-guide-item">
+          <strong>📱 안드로이드 기기 (삼성/크롬)</strong>
+          <p>주소창 바로 우측의 <b>다운로드(⬇️) 아이콘</b>을 탭하거나, 브라우저 메뉴(≡)의 <b>[홈 화면에 추가]</b>를 눌러주세요.</p>
+        </div>
+        
+        <div class="pwa-guide-item">
+          <strong>🍎 아이폰 / 패드 (Safari)</strong>
+          <p>브라우저 하단의 <b>공유(내보내기) 버튼</b>을 누른 뒤 스크롤을 내려 <b>[홈 화면에 추가]</b>를 탭해주세요.</p>
+        </div>
+        
+        <div class="pwa-guide-item">
+          <strong>💻 PC 데스크톱 (크롬/엣지)</strong>
+          <p>브라우저 우측 상단 주소창 끝의 <b>모니터 설치 아이콘(🖥️+⬇)</b>을 눌러 바로 컴퓨터에 설치할 수 있습니다.</p>
+        </div>
+      </div>
+      <div class="pwa-modal-footer">
+        <button id="pwa-modal-btn-action" class="btn-primary" style="width: 100%;">알겠습니다</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript Modules -->
+  <script src="philosophers.js"></script>
+  <script src="movements.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(reg => {
+            console.log('Service Worker registered successfully!', reg.scope);
+            // Auto reload when service worker updates to bypass PWA cache immediately
+            reg.onupdatefound = () => {
+              const installingWorker = reg.installing;
+              if (installingWorker) {
+                installingWorker.onstatechange = () => {
+                  if (installingWorker.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                      console.log('New service worker installed, reloading page...');
+                      window.location.reload();
+                    }
+                  }
+                };
+              }
+            };
+          })
+          .catch(err => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
